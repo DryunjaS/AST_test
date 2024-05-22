@@ -1,0 +1,207 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+html {
+	overflow-x: hidden;
+}
+body {
+	animation: theme 21s linear infinite;
+	&:after,
+	&:before {
+		content: "";
+		display: block;
+		position: fixed;
+		z-index: -1;
+		top: 0;
+		width: 100vw;
+		height: 100vh;
+		width: 100vmax;
+		height: 100vmax;
+		background: rgba(0, 0, 0, 0.05);
+		animation: background 90s linear infinite;
+	}
+
+	&:after {
+		left: 15vw;
+	}
+
+	&:before {
+		right: 15vw;
+		animation-delay: -30s;
+		animation-direction: reverse;
+	}
+}
+
+@keyframes theme {
+	0% {
+		background: #74c390;
+	}
+
+	16% {
+		background: #5dbdb6;
+	}
+
+	33% {
+		background: #59d4e1;
+	}
+
+	50% {
+		background: #51bce8;
+	}
+
+	66% {
+		background: #fa5374;
+	}
+
+	83% {
+		background: #e46653;
+	}
+
+	100% {
+		background: #74c390;
+	}
+}
+
+@keyframes background {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
+}
+@font-face {
+	font-family: regular-c;
+	src: url(/frontend/public/fonts/raleway-regular.woff2);
+}
+.header {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	transition: top 0.3s ease-in-out;
+}
+.hide {
+	top: -100px;
+}
+
+.show {
+	top: 0;
+}
+.link {
+	text-decoration: none;
+	color: #fff;
+}
+.tc {
+	text-align: center;
+}
+.fs40 {
+	font-size: 70px;
+}
+.res-test {
+	font-size: clamp(100px, 30vw, 250px);
+	font-weight: 700;
+	text-align: center;
+}
+
+.pagination {
+	margin: 0 auto;
+	width: max-content;
+}
+table {
+	max-width: max-content;
+	margin: 10px auto;
+	td,
+	th {
+		text-align: center;
+		min-width: 50px;
+
+		.text {
+			text-align: start;
+		}
+	}
+}
+.p5 > :not(caption) > * > * {
+	padding: 5px;
+}
+body::-webkit-scrollbar {
+	width: 8px; /* ширина scrollbar */
+}
+body::-webkit-scrollbar-track {
+	background: transparent; /* цвет дорожки */
+}
+body::-webkit-scrollbar-thumb {
+	background-color: rgb(255, 255, 255, 0.5); /* цвет плашки */
+	border-radius: 20px; /* закругления плашки */
+}
+
+.format {
+	background-color: rgba(255, 255, 255, 0.2);
+	padding: 10px;
+	border-radius: 7px;
+	margin: 10px 0;
+}
+html {
+	scroll-behavior: smooth;
+}
+ul {
+	margin: 0;
+	padding-left: 15px;
+	list-style-type: none;
+}
+.burger-menu {
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	top: 100px;
+	left: 20px;
+	width: 50px;
+	height: 50px;
+	padding: 12px 0;
+	background-color: rgba(255, 255, 255, 0.2);
+	border-radius: 50%;
+	font-size: 30px;
+	font-weight: 700;
+	cursor: pointer;
+}
+.max-con {
+	width: max-content;
+	margin: calc(var(--index) * 2) auto !important;
+}
+.m-l5 {
+	margin-left: 5px;
+}
+.spinner-grow {
+	width: 25px;
+	height: 25px;
+}
+.item-left {
+	display: flex;
+	justify-content: flex-start;
+	user-select: none;
+	.user-room {
+		margin-right: 10px;
+	}
+}
+@media (min-width: 1400px) {
+	.container,
+	.container-lg,
+	.container-md,
+	.container-sm,
+	.container-xl,
+	.container-xxl {
+		max-width: 100%;
+	}
+}
+@import "_auth";
+@import "_preview";
+@import "_setting";
+@import "_KSH";
+@import "_test";
+@import "_result";
+@import "_err";
+@import "_room";

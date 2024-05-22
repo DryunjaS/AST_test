@@ -1,0 +1,37 @@
+.auth-wrapp {
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.auth-form {
+	padding: 20px;
+	border-radius: 10px;
+	width: 400px;
+	height: 300px;
+	// background-color: #fff;
+	color: #fff;
+	background-color: rgb(255, 255, 255, 0.2);
+	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+	.title {
+		text-align: center;
+	}
+	input {
+		color: #fff;
+		background-color: rgb(255, 255, 255, 0.4);
+		&:focus {
+			background-color: rgb(255, 255, 255, 0.6);
+		}
+	}
+}
+.btn-wrap {
+	.btn {
+		max-width: 100%;
+	}
+	.btn__auth {
+		height: 40px;
+		line-height: 0;
+		margin: 0;
+	}
+}

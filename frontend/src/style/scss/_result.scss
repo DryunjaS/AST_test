@@ -1,0 +1,27 @@
+:root {
+	--index: calc(1vw + 1vh);
+}
+.chart {
+	width: calc(var(--index) * 20);
+	height: calc(var(--index) * 20);
+}
+.res-itog {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: calc(var(--index) * 4) auto !important;
+	gap: 10px;
+}
+.result-btn {
+	background-color: transparent;
+	border: 0;
+	color: #fff;
+	font-size: 23px !important;
+	transition: all 0.2s;
+	&:hover {
+		border-radius: 8px;
+		background-color: rgb(255, 255, 255, 0.6) !important;
+		color: #000;
+		cursor: pointer;
+	}
+}

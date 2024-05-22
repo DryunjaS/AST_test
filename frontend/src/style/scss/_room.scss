@@ -1,0 +1,165 @@
+.room-hello {
+	display: grid;
+	place-items: center;
+	font-size: 24px;
+}
+
+.room-test-main {
+	.room-test-item {
+		margin: 15px 0 !important;
+		&:hover {
+			outline: 2px solid #fff;
+			cursor: pointer;
+		}
+	}
+	.room-test-title {
+		text-align: center;
+		margin: 50px 0 !important;
+		font-size: 32px;
+	}
+	.articles__item {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	.delete-btn {
+		font-size: 20px;
+		padding: 10px;
+		transition: all 0.3s;
+		&:hover {
+			border-radius: 8px;
+			background-color: rgb(255, 255, 255, 0.6);
+			color: #000;
+			cursor: pointer;
+		}
+	}
+}
+
+.room-burger {
+	color: #fff;
+	position: absolute;
+	top: 40px;
+}
+.left_item {
+	width: 100%;
+	cursor: pointer;
+}
+.user-room {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	.add {
+		margin: 0 auto;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding-left: 10px;
+		margin-left: 20px;
+		position: relative;
+		line-height: 30px;
+		transition: all 0.2s;
+		&::after {
+			content: "";
+			position: absolute;
+			height: 100%;
+			width: 1px;
+			background-color: #000;
+			top: 0;
+			left: -5px;
+		}
+		&:hover {
+			font-size: 22px;
+		}
+	}
+}
+.container__question {
+	margin: 20px 0;
+	.question__variants {
+		display: flex;
+		flex-direction: column;
+		gap: 5px;
+	}
+}
+.questionCheck,
+.questionSelect {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+
+	.questionCheck__item {
+		display: flex;
+		justify-content: space-between;
+		.left__item {
+			width: 95%;
+		}
+		.right__item {
+			display: flex;
+			align-items: center;
+		}
+	}
+}
+.questionSelect {
+	.questionCheck__item {
+		display: flex;
+		justify-content: space-between;
+		.left__item {
+			width: 48%;
+		}
+		.right__item {
+			width: 48%;
+		}
+	}
+}
+.modal-content {
+	max-width: 80vw;
+}
+
+.cursor-auto {
+	cursor: auto !important;
+}
+.add-item {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+	margin-bottom: 10px;
+}
+.current-res {
+	width: 230px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.resQues {
+	.correctQues {
+		margin-left: 5px;
+		background-color: green;
+		width: 15px;
+		height: 15px;
+	}
+	.incorrectQues {
+		margin-left: 5px;
+		background-color: red;
+		width: 15px;
+		height: 15px;
+	}
+	.nullAnswers {
+		margin-left: 5px;
+		background-color: darkgray;
+		width: 15px;
+		height: 15px;
+	}
+}
+.onlineTest-title {
+	text-align: center;
+}
+.block-res {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	.resQues {
+		display: flex;
+	}
+	h3 {
+		margin: 0;
+	}
+}

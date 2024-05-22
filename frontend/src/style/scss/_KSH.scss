@@ -1,0 +1,48 @@
+:root {
+	--index: calc(1vw + 1vh);
+}
+.KSH-container {
+	display: flex;
+
+	.articles {
+		width: 80vw;
+		margin: 0 auto;
+		color: #fff;
+		.articles__item {
+			background-color: rgb(255, 255, 255, 0.2);
+			padding: 30px;
+			border-radius: 16px;
+			margin: calc(var(--index) * 3) 0;
+			font-size: 18px;
+
+			.text {
+				text-indent: 30px;
+			}
+			.img {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				margin: 15px 0;
+			}
+			img {
+				width: 40vw;
+				border-radius: 8px;
+				cursor: pointer;
+			}
+			.list-item {
+				padding-left: 20px;
+				text-indent: 0;
+			}
+		}
+	}
+}
+.hardware-logo {
+	text-align: center;
+}
+.fs12 {
+	font-size: 12px;
+}
+.list-item {
+	padding-left: 20px;
+}
