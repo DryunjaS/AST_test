@@ -24,11 +24,11 @@ app.use((req, res, next) => {
 
 app.use("/api", router)
 
-// app.use(express.static(path.resolve(__dirname, "./dist")))
+app.use(express.static(path.resolve(__dirname, "./dist")))
 
-// app.get("/", function (req, res) {
-// 	res.sendFile(path.resolve(__dirname, "./dist", "index.html"))
-// })
+app.get("/", function (req, res) {
+	res.sendFile(path.resolve(__dirname, "./dist", "index.html"))
+})
 
 const PORT = process.env.PORT || 5000
 const SERVER_IP = process.env.SERVER_IP || "localhost"

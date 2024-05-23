@@ -42,6 +42,7 @@ const RoomAdmin = () => {
 		setSelect("Наблюдение")
 		try {
 			const response = await TestService.getOnlineStoreEvent()
+			console.log(response.data)
 			setTestOnline(response.data)
 		} catch (error) {
 			console.error("Error fetching sensor data:", error)
@@ -230,31 +231,21 @@ const RoomAdmin = () => {
 												</h3>
 
 												<div className='text block-res'>
-													<div>Правильные ответы: </div>
+													<div>Ответы тестируемого: </div>
 													<div className='resQues'>
-														{testUser.correctQues.map((ques, index) => (
-															<Trigger key={index} title={ques.title}>
-																<div className='correctQues'></div>
-															</Trigger>
-														))}
-													</div>
-												</div>
-												<div className='text block-res'>
-													<div>Неправильные ответы: </div>
-													<div className='resQues'>
-														{testUser.incorrectQues.map((ques, index) => (
-															<Trigger key={index} title={ques.title}>
-																<div className='incorrectQues'></div>
-															</Trigger>
-														))}
-													</div>
-												</div>
-												<div className='text block-res'>
-													<div>Неотвеченные ответы: </div>
-													<div className='resQues'>
-														{testUser.nullAnswers.map((ques, index) => (
-															<Trigger key={index} title={ques.title}>
-																<div className='nullAnswers'></div>
+														{testUser.allAnswers.map((ques, index) => (
+															<Trigger key={index} title={ques.ques.title}>
+																<div
+																	className={
+																		ques.typeAns === "correct"
+																			? "correctQues"
+																			: ques.typeAns === "incorrect"
+																			? "incorrectQues"
+																			: ques.typeAns === "null"
+																			? "nullAnswers"
+																			: ""
+																	}
+																></div>
 															</Trigger>
 														))}
 													</div>

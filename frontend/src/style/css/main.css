@@ -975,18 +975,24 @@ img {
 
 .resQues .correctQues {
   margin-left: 5px;
+  border: 1px solid #000;
+  border-radius: 50%;
   background-color: green;
   width: 15px;
   height: 15px;
 }
 .resQues .incorrectQues {
   margin-left: 5px;
+  border-radius: 50%;
+  border: 1px solid #000;
   background-color: red;
   width: 15px;
   height: 15px;
 }
 .resQues .nullAnswers {
   margin-left: 5px;
+  border-radius: 50%;
+  border: 1px solid #000;
   background-color: darkgray;
   width: 15px;
   height: 15px;

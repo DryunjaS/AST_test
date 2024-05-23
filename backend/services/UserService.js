@@ -2,28 +2,12 @@ const db = require("../db")
 
 class UserService {
 	async getUsers() {
-		const users = await new Promise((resolve, reject) => {
-			db.all("SELECT id, login, role FROM users", (err, rows) => {
-				if (err) {
-					reject(err)
-				} else {
-					resolve(rows)
-				}
-			})
-		})
-		return users
+		const users = await db.query("select id, login, role from users")
+		return users.rows
 	}
-
 	async deleteUser(idUser) {
-		await new Promise((resolve, reject) => {
-			db.run("DELETE FROM users WHERE id = ?", [idUser], function (err) {
-				if (err) {
-					reject(err)
-				} else {
-					resolve()
-				}
-			})
-		})
+		await db.query("delete from users where id = $1", [idUser])
+		return
 	}
 }
 
