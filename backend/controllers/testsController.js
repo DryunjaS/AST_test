@@ -204,6 +204,7 @@ class TestsController {
 	}
 	async getResults(req, res, next) {
 		const { idUser } = req.query
+
 		try {
 			const data = await TestsService.getResults(idUser)
 			res.json(data)
@@ -211,6 +212,7 @@ class TestsController {
 			next(ApiError.badRequest(e.message))
 		}
 	}
+
 	async downloadResult(req, res, next) {
 		const { idTest } = req.params
 		const { login, id } = req.user

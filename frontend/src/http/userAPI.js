@@ -12,12 +12,18 @@ export const registration = async (login, password) => {
 
 export const login = async (login, password) => {
 	const { data } = await $api.post("api/auth/login", { login, password })
+
 	localStorage.setItem("token", data.token)
+	localStorage.setItem("id", data.id)
+	localStorage.setItem("role", data.role)
+	localStorage.setItem("userName", login)
+	localStorage.setItem("isAuth", "true")
+
 	return jwtDecode(data.token)
 }
 export const logout = async () => {
 	localStorage.removeItem("token")
-	sessionStorage.removeItem("isAuth")
+	localStorage.removeItem("isAuth")
 	return
 }
 export const check = async () => {

@@ -46,7 +46,10 @@ class AuthController {
 			user.rows[0].login,
 			user.rows[0].role
 		)
-		return res.json({ token })
+		const id = user.rows[0].id
+		const role = user.rows[0].role
+
+		return res.json({ token, id, role })
 	}
 
 	async check(req, res, next) {

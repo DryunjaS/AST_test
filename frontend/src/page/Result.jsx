@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react"
-import { observer } from "mobx-react-lite"
 import PieChart from "../components/Chart"
 import { useNavigate, useParams } from "react-router-dom"
 import axios from "axios"

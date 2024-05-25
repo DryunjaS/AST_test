@@ -143,7 +143,7 @@ const RoomAdmin = () => {
 						</div>
 
 						<div className='user-room active-btn'>
-							Пользователь: {sessionStorage.getItem("userName")}
+							Пользователь: {localStorage.getItem("userName")}
 						</div>
 					</div>
 

@@ -1,14 +1,17 @@
 import { observer } from "mobx-react-lite"
 import { useEffect, useState } from "react"
 import TestService from "../../services/TestService"
+import UserService from "../../services/UserService"
 
 const RoomUser = () => {
 	const [tests, setTests] = useState([])
 
 	async function getTests() {
 		try {
-			const response = await TestService.getTestsEvents()
-			setTests(response.data)
+			const idUser = localStorage.getItem("id")
+			const response = await TestService.resultsEvent(idUser)
+			console.log(response.data.tests)
+			setTests(response.data.tests)
 		} catch (error) {
 			console.error("Error fetching sensor data:", error)
 		}
@@ -25,7 +28,7 @@ const RoomUser = () => {
 						<div className='item-left room-hello'>Личный кабинет</div>
 
 						<div className='user-room active-btn cursor-auto'>
-							Пользователь: {sessionStorage.getItem("userName")}
+							Пользователь: {localStorage.getItem("userName")}
 						</div>
 					</div>
 					<div className='main room-test-main'>
@@ -39,7 +42,9 @@ const RoomUser = () => {
 												{index + 1}) {test.title}
 											</h4>
 											<div className='text'>
-												Время выполнения: {test.time} минут
+												Время окончания выполнения:{" "}
+												{new Date(test.time_finish).toLocaleDateString()}{" "}
+												{new Date(test.time_finish).toLocaleTimeString()}
 											</div>
 										</div>
 									</div>

@@ -38,11 +38,7 @@ const Room = () => {
 			>
 				&#x2715;
 			</div>
-			{sessionStorage.getItem("userName") === "test" ? (
-				<RoomAdmin />
-			) : (
-				<RoomUser />
-			)}
+			{localStorage.getItem("role") === "admin" ? <RoomAdmin /> : <RoomUser />}
 		</>
 	)
 }

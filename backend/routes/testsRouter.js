@@ -33,11 +33,8 @@ router.put("/update-store", testsController.updateStore)
 router.post("/finish-test", testsController.finishTest)
 router.get("/get-test-result", testsController.getResult)
 router.get("/download-result/:idTest", testsController.downloadResult)
-router.get(
-	"/get-user-store",
-	checkRoleMiddleware("admin"),
-	testsController.getResults
-)
+router.get("/get-user-store", testsController.getResults)
+
 router.delete(
 	"/delete-user-store",
 	checkRoleMiddleware("admin"),

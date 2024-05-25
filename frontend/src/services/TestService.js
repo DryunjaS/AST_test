@@ -49,4 +49,7 @@ export default class TestService {
 	static async getOnlineStoreEvent() {
 		return $authApi.get(`api/tests/get-online-store`)
 	}
+	static async getStoreUserEvent() {
+		return $authApi.get(`api/tests/get-user-store`)
+	}
 }

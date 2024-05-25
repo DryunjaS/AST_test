@@ -3,17 +3,16 @@ import { observer } from "mobx-react-lite"
 import { useNavigate } from "react-router-dom"
 import Form from "react-bootstrap/Form"
 import Button from "react-bootstrap/Button"
-import store from "../store/store"
 import ModuleErr from "../components/Modal/ModuleErr"
 import { login } from "../http/userAPI"
 
-const LoginForm = observer(() => {
+const LoginForm = () => {
 	const navigate = useNavigate()
 	const [name, setName] = useState("")
 	const [password, setPassword] = useState("")
 	const [err, setErr] = useState(false)
 
-	if (store.isAuth) {
+	if (localStorage.getItem("isAuth") === "true") {
 		return navigate("/preview")
 	}
 
@@ -31,13 +30,10 @@ const LoginForm = observer(() => {
 			}
 
 			await login(name.trim(), password.trim())
-			sessionStorage.setItem("userName", name.trim())
-			store.setUser(name)
-			store.setIsAuth(true)
+
 			navigate("/preview")
 		} catch {
 			setErr("Возникла ошибка при входе!")
-			store.showErr = true
 		}
 	}
 
@@ -78,6 +74,6 @@ const LoginForm = observer(() => {
 			</div>
 		</div>
 	)
-})
+}
 
 export default LoginForm
