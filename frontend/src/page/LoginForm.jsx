@@ -1,75 +1,87 @@
-import React, { useState } from "react"
-import { observer } from "mobx-react-lite"
+import React, { useEffect, useState } from "react"
+import { login } from "../http/userAPI"
 import { useNavigate } from "react-router-dom"
 import Form from "react-bootstrap/Form"
-import Button from "react-bootstrap/Button"
 import ModuleErr from "../components/Modal/ModuleErr"
-import { login } from "../http/userAPI"
+import InputGroup from "react-bootstrap/InputGroup"
 
 const LoginForm = () => {
 	const navigate = useNavigate()
-	const [name, setName] = useState("")
-	const [password, setPassword] = useState("")
+	const [validated, setValidated] = useState(false)
 	const [err, setErr] = useState(false)
 
-	if (localStorage.getItem("isAuth") === "true") {
-		return navigate("/preview")
+	const [authForm, setAuthForm] = useState({
+		login: "",
+		password: "",
+	})
+	const changeForm = (event) => {
+		setAuthForm({
+			...authForm,
+			[event.target.name]: event.target.value,
+		})
 	}
 
-	const loginHandler = async (e) => {
-		e.preventDefault()
+	const loginHandler = async (event) => {
+		event.preventDefault()
 
 		try {
-			if (!name) {
-				setErr("Введите логин!")
-				return
-			}
-			if (!password) {
-				setErr("Введите пароль!")
-				return
-			}
+			const form = event.currentTarget
+			if (form.checkValidity() === true) {
+				await login(authForm.login.trim(), authForm.password.trim())
 
-			await login(name.trim(), password.trim())
-
-			navigate("/preview")
+				if (localStorage.getItem("isAuth") === "true") {
+					return navigate("/preview")
+				}
+			} else {
+				setValidated(true)
+			}
 		} catch {
 			setErr("Возникла ошибка при входе!")
 		}
 	}
 
 	return (
-		<div className='auth-wrapp '>
+		<div className='auth'>
 			<ModuleErr err={err} setErr={setErr} />
-			<div className='auth-form'>
-				<h2 className='title'>Вход в систему</h2>
-				<Form onSubmit={loginHandler}>
-					<Form.Group className='mb-3' controlId='formGroupLogin'>
-						<Form.Label>Логин</Form.Label>
-						<Form.Control
-							type='name'
-							placeholder='Введите логин'
-							onChange={(e) => setName(e.target.value)}
-							value={name}
-							required
-						/>
-						<Form.Control.Feedback type='invalid'>
-							Введите логин
-						</Form.Control.Feedback>
+			<div className='auth__form'>
+				<h1 className='title'>Авторизация</h1>
+				<Form
+					noValidate
+					validated={validated}
+					onSubmit={loginHandler}
+					className='inputWrap'
+				>
+					<Form.Group controlId='validationCustomUsername'>
+						<InputGroup hasValidation>
+							<Form.Control
+								type='text'
+								placeholder='Логин'
+								name='login'
+								value={authForm.login}
+								onChange={changeForm}
+								required
+							/>
+							<Form.Control.Feedback type='invalid' className='textCentr'>
+								Введите пожалуйста логин.
+							</Form.Control.Feedback>
+						</InputGroup>
 					</Form.Group>
-					<Form.Group className='mb-3' controlId='formGroupPassword'>
-						<Form.Label>Пароль</Form.Label>
-						<Form.Control
-							type='password'
-							placeholder='Введите пароль'
-							onChange={(e) => setPassword(e.target.value)}
-							value={password}
-						/>
+					<Form.Group controlId='validationCustomPassword'>
+						<InputGroup hasValidation>
+							<Form.Control
+								type='password'
+								placeholder='Пароль'
+								name='password'
+								value={authForm.password}
+								onChange={changeForm}
+								required
+							/>
+							<Form.Control.Feedback type='invalid' className='textCentr'>
+								Введите пожалуйста пароль.
+							</Form.Control.Feedback>
+						</InputGroup>
 					</Form.Group>
-					<div className='btn-wrap'>
-						<Button type='submit' className='btn__auth'>
-							Войти
-						</Button>
-					</div>
+					<button type='submit'>Войти</button>
 				</Form>
 			</div>
 		</div>

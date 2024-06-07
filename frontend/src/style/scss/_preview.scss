@@ -13,7 +13,7 @@ $white: #fff;
 	.title {
 		text-align: center;
 		margin-bottom: 20px;
-		font-size: clamp(10px, 5vw, 50px);
+		font-size: clamp(40px, 5vw, 50px);
 	}
 	.hardware {
 		display: flex;
@@ -120,4 +120,12 @@ $white: #fff;
 }
 .wrapp-item {
 	display: flex;
+}
+@media (max-width: 570px) {
+	.main .preview-wrap {
+		padding-inline: clamp(10px, 5vw, 100px);
+	}
+	.title {
+		font-size: 30px;
+	}
 }

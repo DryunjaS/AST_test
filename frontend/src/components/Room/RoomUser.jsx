@@ -11,7 +11,11 @@ const RoomUser = () => {
 			const idUser = localStorage.getItem("id")
 			const response = await TestService.resultsEvent(idUser)
 			console.log(response.data.tests)
-			setTests(response.data.tests)
+			if (!response.data.tests) {
+				setTests([])
+			} else {
+				setTests(response.data.tests)
+			}
 		} catch (error) {
 			console.error("Error fetching sensor data:", error)
 		}
@@ -32,10 +36,10 @@ const RoomUser = () => {
 						</div>
 					</div>
 					<div className='main room-test-main'>
-						{tests.length !== 0 ? (
+						{tests?.length !== 0 ? (
 							<div className='articles'>
 								<h3 className='room-test-title'>Пройденные тесты</h3>
-								{tests.map((test, index) => (
+								{tests?.map((test, index) => (
 									<div className='articles__item room-test-item'>
 										<div className='left_item cursor-auto'>
 											<h4>

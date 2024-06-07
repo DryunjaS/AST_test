@@ -149,10 +149,10 @@ const RoomAdmin = () => {
 
 					<div className='main room-test-main'>
 						{select === "Тесты" &&
-							(tests.length !== 0 ? (
+							(tests?.length !== 0 ? (
 								<div className='articles'>
 									<h3 className='room-test-title'>Тесты</h3>
-									{tests.map((test, index) => (
+									{tests?.map((test, index) => (
 										<div className='articles__item room-test-item '>
 											<div
 												className='left_item'
@@ -180,7 +180,7 @@ const RoomAdmin = () => {
 								<div className='room-hello'>Созданных тестов ещё нет!</div>
 							))}
 						{select === "Учасники" &&
-							(users.length !== 0 ? (
+							(users?.length !== 0 ? (
 								<div className='articles'>
 									<h3 className='room-test-title'>Список учасников</h3>
 									{users.map((user, index) => (
@@ -220,10 +220,10 @@ const RoomAdmin = () => {
 							))}
 
 						{select === "Наблюдение" &&
-							(testOnline.length !== 0 ? (
+							(testOnline?.length !== 0 ? (
 								<div className='articles'>
 									<h3 className='room-test-title'>Список текущих тестов</h3>
-									{testOnline.map((testUser, index) => (
+									{testOnline?.map((testUser, index) => (
 										<div className='articles__item room-test-item' key={index}>
 											<div className='left_item'>
 												<h3>

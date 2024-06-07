@@ -24,8 +24,11 @@ const Result = () => {
 			(5 * resValue?.correctCount) /
 			(resValue?.correctCount + resValue?.incorrectCount)
 		const roundedResultPercent = resultPercent.toFixed(2)
-
-		setResTest(roundedResultPercent)
+		if (!resultPercent) {
+			setResTest(0)
+		} else {
+			setResTest(roundedResultPercent)
+		}
 	}, [resValue])
 	const handleBurger = () => {
 		navigate("/preview")

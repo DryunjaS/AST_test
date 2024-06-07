@@ -5,7 +5,7 @@ Windows IP Configuration
 Ethernet adapter Ethernet 2:
 
    Connection-specific DNS Suffix  . : 
-   Link-local IPv6 Address . . . . . : fe80::2353:3b71:210e:2607%11
+   Link-local IPv6 Address . . . . . : fe80::20f3:c224:62e7:d1ea%10
    IPv4 Address. . . . . . . . . . . : 192.168.56.1
    Subnet Mask . . . . . . . . . . . : 255.255.255.0
    Default Gateway . . . . . . . . . : 
@@ -23,7 +23,7 @@ Wireless LAN adapter Подключение по локальной сети* 2:
 Ethernet adapter VMware Network Adapter VMnet1:
 
    Connection-specific DNS Suffix  . : 
-   Link-local IPv6 Address . . . . . : fe80::7ca:b80b:a387:82f2%19
+   Link-local IPv6 Address . . . . . : fe80::7ca:b80b:a387:82f2%17
    IPv4 Address. . . . . . . . . . . : 192.168.133.1
    Subnet Mask . . . . . . . . . . . : 255.255.255.0
    Default Gateway . . . . . . . . . : 
@@ -39,7 +39,7 @@ Ethernet adapter VMware Network Adapter VMnet8:
 Ethernet adapter outline-tap0:
 
    Connection-specific DNS Suffix  . : 
-   Link-local IPv6 Address . . . . . : fe80::1878:1e3:d83a:95f8%16
+   Link-local IPv6 Address . . . . . : fe80::1878:1e3:d83a:95f8%15
    IPv4 Address. . . . . . . . . . . : 10.0.85.2
    Subnet Mask . . . . . . . . . . . : 255.255.255.255
    Default Gateway . . . . . . . . . : 
@@ -56,11 +56,3 @@ Ethernet adapter Сетевое подключение Bluetooth:
 
    Media State . . . . . . . . . . . : Media disconnected
    Connection-specific DNS Suffix  . : 
-
-Ethernet adapter vEthernet (WSL (Hyper-V firewall)):
-
-   Connection-specific DNS Suffix  . : 
-   Link-local IPv6 Address . . . . . : fe80::24b6:1126:407b:75bd%26
-   IPv4 Address. . . . . . . . . . . : 172.23.48.1
-   Subnet Mask . . . . . . . . . . . : 255.255.240.0
-   Default Gateway . . . . . . . . . : 
