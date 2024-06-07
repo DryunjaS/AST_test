@@ -1,7 +1,7 @@
 import RadioList from "../components/Questions/RadioList"
 import SelectList from "../components/Questions/SelectList"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import MyPagination from "../components/MyPagination"
 import { useNavigate, useParams } from "react-router-dom"
 import CheckList from "../components/Questions/CheckList"
@@ -67,8 +67,20 @@ const Test = () => {
 	const minutes = Math.floor(time / 60)
 	const seconds = time % 60
 
+	const burgerRef = useRef(null)
+
+	const handleBurger = () => {
+		navigate("/preview")
+	}
 	return (
 		<>
+			<div
+				className='burger-menu room-burger'
+				onClick={handleBurger}
+				ref={burgerRef}
+			>
+				&#x2715;
+			</div>
 			<ModuleReturn show={showModalReturn} setShow={setShowModalReturn} />
 			<div className='setting-container'>
 				<div className='articles'>
