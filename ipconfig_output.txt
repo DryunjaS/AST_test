@@ -38,19 +38,13 @@ Ethernet adapter VMware Network Adapter VMnet8:
 
 Ethernet adapter outline-tap0:
 
+   Media State . . . . . . . . . . . : Media disconnected
    Connection-specific DNS Suffix  . : 
-   Link-local IPv6 Address . . . . . : fe80::1878:1e3:d83a:95f8%15
-   IPv4 Address. . . . . . . . . . . : 10.0.85.2
-   Subnet Mask . . . . . . . . . . . : 255.255.255.255
-   Default Gateway . . . . . . . . . : 
 
 Wireless LAN adapter Беспроводная сеть:
 
+   Media State . . . . . . . . . . . : Media disconnected
    Connection-specific DNS Suffix  . : 
-   Link-local IPv6 Address . . . . . : fe80::74c5:ca42:c8b:4c8a%9
-   IPv4 Address. . . . . . . . . . . : 192.168.80.151
-   Subnet Mask . . . . . . . . . . . : 255.255.255.0
-   Default Gateway . . . . . . . . . : 192.168.80.129
 
 Ethernet adapter Сетевое подключение Bluetooth:
 

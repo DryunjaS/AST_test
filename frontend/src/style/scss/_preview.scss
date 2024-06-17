@@ -109,9 +109,27 @@ $white: #fff;
 	}
 }
 .main .preview-wrap {
+	position: relative;
 	padding: 50px 100px;
 	user-select: none;
+	background-color: rgba(255, 255, 255, 0.2);
+	z-index: 0;
 }
+
+.main .preview-wrap::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	backdrop-filter: blur(3px);
+	z-index: -1;
+	pointer-events: none;
+	border-radius: inherit;
+	background-color: inherit;
+}
+
 .main .hardware .m0 {
 	margin: 0;
 }

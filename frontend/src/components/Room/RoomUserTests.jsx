@@ -66,7 +66,7 @@ const RoomUserTests = () => {
 				<div className='articles'>
 					<div className='container'>
 						<div className='item-left'>
-							<div className={`user-room active-btn`}>Учасник:</div>
+							<div className={`user-room active-btn`}>Участник:</div>
 							<div className={`user-room active-btn`}>{userStore.userName}</div>
 						</div>
 					</div>

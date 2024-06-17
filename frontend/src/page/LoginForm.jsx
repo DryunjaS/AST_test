@@ -29,7 +29,7 @@ const LoginForm = () => {
 			if (form.checkValidity() === true) {
 				await login(authForm.login.trim(), authForm.password.trim())
 
-				if (localStorage.getItem("isAuth") === "true") {
+				if (sessionStorage.getItem("isAuth") === "true") {
 					return navigate("/preview")
 				}
 			} else {

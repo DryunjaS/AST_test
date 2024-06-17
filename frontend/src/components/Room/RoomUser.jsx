@@ -1,16 +1,14 @@
 import { observer } from "mobx-react-lite"
 import { useEffect, useState } from "react"
 import TestService from "../../services/TestService"
-import UserService from "../../services/UserService"
 
 const RoomUser = () => {
 	const [tests, setTests] = useState([])
 
 	async function getTests() {
 		try {
-			const idUser = localStorage.getItem("id")
+			const idUser = sessionStorage.getItem("id")
 			const response = await TestService.resultsEvent(idUser)
-			console.log(response.data.tests)
 			if (!response.data.tests) {
 				setTests([])
 			} else {
@@ -32,7 +30,7 @@ const RoomUser = () => {
 						<div className='item-left room-hello'>Личный кабинет</div>
 
 						<div className='user-room active-btn cursor-auto'>
-							Пользователь: {localStorage.getItem("userName")}
+							Пользователь: {sessionStorage.getItem("userName")}
 						</div>
 					</div>
 					<div className='main room-test-main'>

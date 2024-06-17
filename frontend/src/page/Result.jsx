@@ -59,7 +59,7 @@ const Result = () => {
 			.get(url, {
 				responseType: "blob",
 				headers: {
-					Authorization: `Bearer ${localStorage.getItem("token")}`,
+					Authorization: `Bearer ${sessionStorage.getItem("token")}`,
 					"ngrok-skip-browser-warning": "true",
 				},
 			})

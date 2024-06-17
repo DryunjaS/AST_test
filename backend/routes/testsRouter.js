@@ -1,4 +1,5 @@
 const Router = require("express")
+
 const router = new Router()
 const checkRoleMiddleware = require("../middleware/checkRoleMiddleware")
 const testsController = require("../controllers/testsController")
@@ -11,6 +12,12 @@ router.post(
 	checkRoleMiddleware("admin"),
 	testsController.addQuestions
 )
+
+// router.post(
+// 	"/api/tests/add-images",
+// 	checkRoleMiddleware("admin"),
+// 	testsController.addImages
+// )
 router.delete(
 	"/delete-test",
 	checkRoleMiddleware("admin"),

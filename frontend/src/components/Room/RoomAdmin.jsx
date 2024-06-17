@@ -30,7 +30,7 @@ const RoomAdmin = () => {
 		}
 	}
 	async function getUsers() {
-		setSelect("Учасники")
+		setSelect("Участники")
 		try {
 			const response = await UserService.getUsers()
 			setUsers(response.data)
@@ -115,12 +115,12 @@ const RoomAdmin = () => {
 							</div>
 							<div
 								className={`user-room ${
-									select === "Учасники" ? "active-btn" : ""
+									select === "Участники" ? "active-btn" : ""
 								}`}
 								onClick={getUsers}
 							>
-								Учасники
-								{select === "Учасники" && (
+								Участники
+								{select === "Участники" && (
 									<div className='add' onClick={addUser}>
 										Добавить
 									</div>
@@ -143,7 +143,7 @@ const RoomAdmin = () => {
 						</div>
 
 						<div className='user-room active-btn'>
-							Пользователь: {localStorage.getItem("userName")}
+							Пользователь: {sessionStorage.getItem("userName")}
 						</div>
 					</div>
 
@@ -179,10 +179,10 @@ const RoomAdmin = () => {
 							) : (
 								<div className='room-hello'>Созданных тестов ещё нет!</div>
 							))}
-						{select === "Учасники" &&
+						{select === "Участники" &&
 							(users?.length !== 0 ? (
 								<div className='articles'>
-									<h3 className='room-test-title'>Список учасников</h3>
+									<h3 className='room-test-title'>Список Участников</h3>
 									{users.map((user, index) => (
 										<div
 											className='articles__item room-test-item'
@@ -215,7 +215,7 @@ const RoomAdmin = () => {
 								</div>
 							) : (
 								<div className='articles'>
-									<h3 className='room-test-title'>Список учасников пуст</h3>
+									<h3 className='room-test-title'>Список Участников пуст</h3>
 								</div>
 							))}
 

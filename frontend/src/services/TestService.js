@@ -21,7 +21,9 @@ export default class TestService {
 	static async addQuesEvent(id, questions) {
 		return $authApi.post("api/tests/add-questions", { id, questions })
 	}
-
+	static async addImagesEvent(images) {
+		return await $authApi.post("api/tests/add-images", images)
+	}
 	static async createStoreEvent(idTest) {
 		return $authApi.post("api/tests/create-store", { idTest })
 	}

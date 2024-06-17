@@ -14,23 +14,44 @@
 		display: flex;
 		flex-direction: column;
 		.articles__item {
-			background-color: rgb(255, 255, 255, 0.2);
+			position: relative;
+			background-color: rgba(255, 255, 255, 0.2);
 			padding: 30px;
 			border-radius: 16px;
 			margin: calc(var(--index) * 2) 0;
 			font-size: 18px;
-			.img {
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
-				align-items: center;
-				margin: 15px 0;
-			}
-			img {
-				width: 40vw;
-				border-radius: 8px;
-				cursor: pointer;
-			}
+			overflow: hidden; /* Ensure the pseudo-element doesn't overflow */
+			z-index: 0; /* Ensure it is below the pseudo-element */
+		}
+
+		.articles__item::before {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			backdrop-filter: blur(3px);
+			z-index: -1;
+			pointer-events: none;
+			border-radius: inherit;
+			background-color: inherit;
+		}
+
+		.articles__item .img {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			margin: 15px 0;
+			position: relative;
+			z-index: 1;
+		}
+
+		.articles__item img {
+			width: 40vw;
+			border-radius: 8px;
+			cursor: pointer;
 		}
 	}
 }

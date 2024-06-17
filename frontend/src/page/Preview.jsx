@@ -18,9 +18,9 @@ const Preview = () => {
 
 	const handlelogout = async () => {
 		await logout()
-		localStorage.removeItem("userName")
-		localStorage.removeItem("role")
-		localStorage.removeItem("id")
+		sessionStorage.removeItem("userName")
+		sessionStorage.removeItem("role")
+		sessionStorage.removeItem("id")
 		navigate("/")
 	}
 
@@ -35,7 +35,7 @@ const Preview = () => {
 	}
 
 	useEffect(() => {
-		if (localStorage.getItem("isAuth") === "true") {
+		if (sessionStorage.getItem("isAuth") === "true") {
 			getTests()
 		}
 	}, [])
@@ -46,7 +46,7 @@ const Preview = () => {
 				<div className='articles'>
 					<div className='container'>
 						<div className='item-left room-hello'>
-							Добро пожаловать, {localStorage.getItem("userName")}
+							Добро пожаловать, {sessionStorage.getItem("userName")}
 						</div>
 
 						<div className='wrapp-item'>

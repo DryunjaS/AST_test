@@ -1,12 +1,14 @@
 import Button from "react-bootstrap/Button"
 import Modal from "react-bootstrap/Modal"
 import Form from "react-bootstrap/Form"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import TestService from "../../services/TestService"
 import { useParams } from "react-router-dom"
 
 function ModalAddQues({ show, setShow, setTest }) {
 	const [select, setSelect] = useState("1")
+	const [images, setImages] = useState([])
+
 	const { id } = useParams()
 
 	const [validated, setValidated] = useState(false)
@@ -95,6 +97,16 @@ function ModalAddQues({ show, setShow, setTest }) {
 			event.stopPropagation()
 		} else {
 			await TestService.addQuesEvent(id, user_ques)
+
+			if (images.length > 0) {
+				const formData = new FormData()
+				images.forEach((image) => {
+					formData.append("file", image)
+				})
+				console.log(formData)
+				await TestService.addImagesEvent(formData)
+			}
+
 			const response = await TestService.getTestEvent(id)
 			setTest(response.data)
 			setShow(false)
@@ -113,10 +125,31 @@ function ModalAddQues({ show, setShow, setTest }) {
 					{ ques: "", res: "" },
 					{ ques: "", res: "" },
 				],
+				images,
 			})
 		}
 		setValidated(true)
 	}
+	const fileInputRef = useRef(null)
+
+	const handleDivClick = () => {
+		fileInputRef.current.click()
+	}
+
+	const handleFileChange = (event) => {
+		const file = event.target.files[0]
+		if (file) {
+			setImages([...images, file])
+		}
+	}
+	useEffect(() => {
+		console.log(images)
+	}, [images])
+
+	const deleteImage = (index) => {
+		setImages((prevImages) => prevImages.filter((_, i) => i !== index))
+	}
+
 	return (
 		<>
 			<Modal
@@ -148,15 +181,43 @@ function ModalAddQues({ show, setShow, setTest }) {
 								{select === "1" && (
 									<div className='question__variants'>
 										<Form.Label>Вопрос:</Form.Label>
-										<Form.Control
-											type='text'
-											id={`inputQues`}
-											placeholder={`Сколько будет 2x2= ?`}
-											value={user_ques.title}
-											onChange={changeTitle}
-											required
-										/>
-
+										<div className='flex'>
+											<Form.Control
+												type='text'
+												id={`inputQues`}
+												placeholder={`Сколько будет 2x2= ?`}
+												value={user_ques.title}
+												onChange={changeTitle}
+												required
+											/>
+											<div
+												className='add-img'
+												title='Добавить изображение'
+												onClick={handleDivClick}
+											>
+												<img src='/images/plus.png' alt='' />
+												<img src='/images/addImage.png' alt='' />
+												<input
+													type='file'
+													ref={fileInputRef}
+													style={{ display: "none" }}
+													onChange={handleFileChange}
+												/>
+											</div>
+										</div>
+										<div className='flex start'>
+											{images.map((img, index) => (
+												<div className='select-images'>
+													<img key={index} src={`/images/${img.name}`} alt='' />
+													<img
+														key={index}
+														src={`/images/close.png`}
+														onClick={() => deleteImage(index)}
+														alt=''
+													/>
+												</div>
+											))}
+										</div>
 										<Form.Label>Варианты ответов:</Form.Label>
 										{user_ques.body.map((ques, index) => (
 											<Form.Control

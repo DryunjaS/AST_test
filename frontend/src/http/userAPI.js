@@ -6,28 +6,28 @@ export const registration = async (login, password) => {
 		login,
 		password,
 	})
-	localStorage.setItem("token", data.token)
+	sessionStorage.setItem("token", data.token)
 	return jwtDecode(data.token)
 }
 
 export const login = async (login, password) => {
 	const { data } = await $api.post("api/auth/login", { login, password })
 
-	localStorage.setItem("token", data.token)
-	localStorage.setItem("id", data.id)
-	localStorage.setItem("role", data.role)
-	localStorage.setItem("userName", login)
-	localStorage.setItem("isAuth", "true")
+	sessionStorage.setItem("token", data.token)
+	sessionStorage.setItem("id", data.id)
+	sessionStorage.setItem("role", data.role)
+	sessionStorage.setItem("userName", login)
+	sessionStorage.setItem("isAuth", "true")
 
 	return jwtDecode(data.token)
 }
 export const logout = async () => {
-	localStorage.removeItem("token")
-	localStorage.removeItem("isAuth")
+	sessionStorage.removeItem("token")
+	sessionStorage.removeItem("isAuth")
 	return
 }
 export const check = async () => {
 	const { data } = await $authApi.get("api/auth/auth")
-	localStorage.setItem("token", data.token)
+	sessionStorage.setItem("token", data.token)
 	return jwtDecode(data.token)
 }
