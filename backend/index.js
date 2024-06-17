@@ -32,6 +32,7 @@ const storage = multer.diskStorage({
 	},
 })
 
+// Используем upload.array() для загрузки нескольких файлов
 const upload = multer({ storage: storage })
 
 app.use(cors())
@@ -48,13 +49,16 @@ app.use(express.static(path.resolve(__dirname, "./dist")))
 app.get("/", function (req, res) {
 	res.sendFile(path.resolve(__dirname, "./dist", "index.html"))
 })
-app.post("/api/tests/add-images", upload.single("file"), (req, res) => {
-	const file = req.file
-	if (!file) {
-		return res.status(400).send("No file uploaded.")
+
+// Обновленный маршрут для загрузки нескольких файлов
+app.post("/api/tests/add-images", upload.array("files"), (req, res) => {
+	const files = req.files
+	console.log(files)
+	if (!files || files.length === 0) {
+		return res.status(400).send("No files uploaded.")
 	}
 
-	res.send("File uploaded successfully.")
+	res.send("Files uploaded successfully.")
 })
 
 const PORT = process.env.PORT || 5000

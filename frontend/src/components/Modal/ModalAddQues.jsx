@@ -101,10 +101,17 @@ function ModalAddQues({ show, setShow, setTest }) {
 			if (images.length > 0) {
 				const formData = new FormData()
 				images.forEach((image) => {
-					formData.append("file", image)
+					formData.append("files", image)
 				})
-				console.log(formData)
-				await TestService.addImagesEvent(formData)
+
+				console.log(formData) // Для отладки
+
+				try {
+					await TestService.addImagesEvent(formData)
+					console.log("Files uploaded successfully.")
+				} catch (error) {
+					console.error("Error uploading files:", error)
+				}
 			}
 
 			const response = await TestService.getTestEvent(id)
