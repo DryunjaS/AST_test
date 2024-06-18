@@ -34,34 +34,48 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	background-color: rgb(255, 255, 255, 0.2);
+	// background-color: rgb(255, 255, 255, 0.2);
 	padding: 15px 20px;
 	border-radius: 16px;
 	font-size: 22px;
 	.pagination__item {
+		min-width: 45px;
 		margin: 0 auto;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		padding-left: 10px;
-		margin-left: 20px;
+		padding: 10px;
+		border-radius: 8px;
+		margin: 0 5px;
+		// margin-left: 20px;
+		background-color: rgb(255, 255, 255, 0.2);
+
 		position: relative;
 		line-height: 30px;
 		transition: all 0.2s;
 		cursor: pointer;
-		&::after {
-			content: "";
-			position: absolute;
-			height: 100%;
-			width: 1px;
-			background-color: #000;
-			top: 0;
-			left: -5px;
-		}
+		// &::after {
+		// 	content: "";
+		// 	position: absolute;
+		// 	height: 100%;
+		// 	width: 1px;
+		// 	background-color: #000;
+		// 	top: 0;
+		// 	left: -5px;
+		// }
 		&:hover {
 			font-size: 25px;
+			background-color: #fff;
+			color: #000;
+			scale: 1.05;
 		}
 	}
+}
+.pagination .active {
+	font-size: 25px;
+	background-color: #fff;
+	color: #000;
+	scale: 1.05;
 }
 .modal-content {
 	min-width: 50vw;
@@ -156,7 +170,7 @@
 	justify-content: center;
 }
 .img-modal img {
-	min-height: 75px;
+	min-height: 100px;
 	max-height: 450px;
 	width: max-content !important;
 	margin: 10px;
