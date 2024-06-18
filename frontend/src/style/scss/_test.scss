@@ -138,3 +138,27 @@
 	height: 20px !important;
 	cursor: pointer;
 }
+.images-ques {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.images-ques img {
+	min-height: 30px;
+	max-height: 100px;
+	width: max-content !important;
+	margin: 10px;
+	object-fit: contain;
+}
+.img-modal {
+	display: flex;
+	justify-content: center;
+}
+.img-modal img {
+	min-height: 75px;
+	max-height: 450px;
+	width: max-content !important;
+	margin: 10px;
+	object-fit: contain;
+}

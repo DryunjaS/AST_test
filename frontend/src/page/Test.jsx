@@ -24,7 +24,6 @@ const Test = () => {
 		} finally {
 			try {
 				const res = await TestService.getStoreEvent(testID)
-				console.log(res.data)
 				setRandomQuestions(res.data.buffer)
 				setNumQ(res.data.buffer.length)
 				const timeFinish = res.data.time_finish
@@ -35,11 +34,9 @@ const Test = () => {
 					const diffSeconds = Math.floor(diffMs / 1000)
 					setTime(diffSeconds)
 				} else {
-					console.log("FGHJk")
 					setShowModalReturn(true)
 				}
 			} catch (err) {
-				console.log("FGHJk")
 				setShowModalReturn(true)
 			}
 		}

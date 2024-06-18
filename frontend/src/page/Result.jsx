@@ -22,7 +22,7 @@ const Result = () => {
 	useEffect(() => {
 		const resultPercent =
 			(5 * resValue?.correctCount) /
-			(resValue?.correctCount + resValue?.incorrectCount)
+			(resValue?.correctCount + resValue?.incorrectCount + resValue?.nullCount)
 		const roundedResultPercent = resultPercent.toFixed(2)
 		if (!resultPercent) {
 			setResTest(0)
@@ -81,20 +81,69 @@ const Result = () => {
 					<div className='chart'>
 						<PieChart
 							countTrue={resValue?.correctCount}
-							countFalse={resValue?.incorrectCount}
+							countFalse={resValue?.incorrectCount + resValue?.nullCount}
 						/>
 					</div>
 				</div>
 			</div>
-			{resValue?.incorrectAnswers.length !== 0 && (
-				<div className='articles'>
-					<div className='articles__item max-con'>
-						<h2 className='title tc'>Подумайте над следующими вопросами:</h2>
+			{resValue?.incorrectAnswers.length !== 0 ||
+				(resValue?.nullAnswers.length !== 0 && (
+					<div className='articles'>
+						<div className='articles__item max-con'>
+							<h2 className='title tc'>Подумайте над следующими вопросами:</h2>
+						</div>
 					</div>
-				</div>
-			)}
+				))}
 
 			{resValue?.incorrectAnswers.map((question, index) => (
+				<div className='articles'>
+					<div className='articles__item'>
+						<h3 className='title'>
+							{index + 1}. {question.title}
+						</h3>
+						<div className='text'>
+							{(() => {
+								switch (question.type) {
+									case "radio":
+										return (
+											<ul>
+												{question.body.map((item, indexItem) => (
+													<li>
+														{indexItem + 1}) {item.ques}
+													</li>
+												))}
+											</ul>
+										)
+									case "select":
+										return (
+											<ul>
+												{question.body.map((item, indexItem) => (
+													<li>
+														{indexItem + 1}) {item.ques.substring(3)}
+													</li>
+												))}
+											</ul>
+										)
+
+									case "check":
+										return (
+											<ul>
+												{question.body.map((item, indexItem) => (
+													<li>
+														{indexItem + 1}){item.ques}
+													</li>
+												))}
+											</ul>
+										)
+									default:
+										return null
+								}
+							})()}
+						</div>
+					</div>
+				</div>
+			))}
+			{resValue?.nullAnswers.map((question, index) => (
 				<div className='articles'>
 					<div className='articles__item'>
 						<h3 className='title'>

@@ -28,6 +28,7 @@ function ModalAddQues({ show, setShow, setTest }) {
 			{ ques: "", res: "" },
 			{ ques: "", res: "" },
 		],
+		img: [],
 	})
 	const handleSelectChange = (event) => {
 		setSelect(event.target.value)
@@ -96,16 +97,11 @@ function ModalAddQues({ show, setShow, setTest }) {
 		if (form.checkValidity() === false) {
 			event.stopPropagation()
 		} else {
-			await TestService.addQuesEvent(id, user_ques)
-
 			if (images.length > 0) {
 				const formData = new FormData()
 				images.forEach((image) => {
 					formData.append("files", image)
 				})
-
-				console.log(formData) // Для отладки
-
 				try {
 					await TestService.addImagesEvent(formData)
 					console.log("Files uploaded successfully.")
@@ -113,7 +109,8 @@ function ModalAddQues({ show, setShow, setTest }) {
 					console.error("Error uploading files:", error)
 				}
 			}
-
+			console.log(user_ques)
+			await TestService.addQuesEvent(id, user_ques)
 			const response = await TestService.getTestEvent(id)
 			setTest(response.data)
 			setShow(false)
@@ -132,8 +129,9 @@ function ModalAddQues({ show, setShow, setTest }) {
 					{ ques: "", res: "" },
 					{ ques: "", res: "" },
 				],
-				images,
+				img: [],
 			})
+			setImages([])
 		}
 		setValidated(true)
 	}
@@ -150,7 +148,12 @@ function ModalAddQues({ show, setShow, setTest }) {
 		}
 	}
 	useEffect(() => {
-		console.log(images)
+		const filteredImageNames = images
+			.filter((image) => {
+				return image.name
+			})
+			.map((image) => image.name)
+		setUserQues({ ...user_ques, img: filteredImageNames })
 	}, [images])
 
 	const deleteImage = (index) => {
@@ -256,14 +259,44 @@ function ModalAddQues({ show, setShow, setTest }) {
 								{select === "2" && (
 									<div className='question__variants'>
 										<Form.Label>Вопрос:</Form.Label>
-										<Form.Control
-											type='text'
-											id={`inputQues`}
-											placeholder={`Сколько будет 2x2= ?`}
-											value={user_ques.title}
-											onChange={changeTitle}
-											required
-										/>
+
+										<div className='flex'>
+											<Form.Control
+												type='text'
+												id={`inputQues`}
+												placeholder={`Сколько будет 2x2= ?`}
+												value={user_ques.title}
+												onChange={changeTitle}
+												required
+											/>
+											<div
+												className='add-img'
+												title='Добавить изображение'
+												onClick={handleDivClick}
+											>
+												<img src='/images/plus.png' alt='' />
+												<img src='/images/addImage.png' alt='' />
+												<input
+													type='file'
+													ref={fileInputRef}
+													style={{ display: "none" }}
+													onChange={handleFileChange}
+												/>
+											</div>
+										</div>
+										<div className='flex start'>
+											{images.map((img, index) => (
+												<div className='select-images'>
+													<img key={index} src={`/images/${img.name}`} alt='' />
+													<img
+														key={index}
+														src={`/images/close.png`}
+														onClick={() => deleteImage(index)}
+														alt=''
+													/>
+												</div>
+											))}
+										</div>
 
 										<div className='questionCheck'>
 											<Form.Label>Варианты ответов:</Form.Label>
@@ -302,15 +335,44 @@ function ModalAddQues({ show, setShow, setTest }) {
 								{select === "3" && (
 									<div className='question__variants'>
 										<Form.Label>Вопрос:</Form.Label>
-										<Form.Control
-											type='text'
-											id={`inputQues`}
-											placeholder={`Сопоставьте характеристики`}
-											value={user_ques.title}
-											onChange={changeTitle}
-											required
-										/>
 
+										<div className='flex'>
+											<Form.Control
+												type='text'
+												id={`inputQues`}
+												placeholder={`Сопоставьте характеристики`}
+												value={user_ques.title}
+												onChange={changeTitle}
+												required
+											/>
+											<div
+												className='add-img'
+												title='Добавить изображение'
+												onClick={handleDivClick}
+											>
+												<img src='/images/plus.png' alt='' />
+												<img src='/images/addImage.png' alt='' />
+												<input
+													type='file'
+													ref={fileInputRef}
+													style={{ display: "none" }}
+													onChange={handleFileChange}
+												/>
+											</div>
+										</div>
+										<div className='flex start'>
+											{images.map((img, index) => (
+												<div className='select-images'>
+													<img key={index} src={`/images/${img.name}`} alt='' />
+													<img
+														key={index}
+														src={`/images/close.png`}
+														onClick={() => deleteImage(index)}
+														alt=''
+													/>
+												</div>
+											))}
+										</div>
 										<div className='questionSelect'>
 											<Form.Label>Варианты ответов:</Form.Label>
 											{user_ques.res.map((ques, index) => (

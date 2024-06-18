@@ -54,4 +54,9 @@ export default class TestService {
 	static async getStoreUserEvent() {
 		return $authApi.get(`api/tests/get-user-store`)
 	}
+	static async getImagesEvent(img) {
+		return $authApi.get(`api/tests/get-img?img=${img}`, {
+			responseType: "arraybuffer",
+		})
+	}
 }

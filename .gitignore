@@ -12,7 +12,7 @@ lerna-debug.log*
 
 /backend/node_modules
 /backend/dist
-
+/backend/uploads
 dist-ssr
 *.local
 

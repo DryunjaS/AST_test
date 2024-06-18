@@ -28,7 +28,7 @@ const storage = multer.diskStorage({
 		cb(null, uploadDir)
 	},
 	filename: function (req, file, cb) {
-		cb(null, Date.now() + path.extname(file.originalname))
+		cb(null, file.originalname)
 	},
 })
 
@@ -53,12 +53,26 @@ app.get("/", function (req, res) {
 // Обновленный маршрут для загрузки нескольких файлов
 app.post("/api/tests/add-images", upload.array("files"), (req, res) => {
 	const files = req.files
-	console.log(files)
 	if (!files || files.length === 0) {
 		return res.status(400).send("No files uploaded.")
 	}
 
 	res.send("Files uploaded successfully.")
+})
+// Маршрут для получения изображения по его названию
+app.get("/api/tests/get-img", async (req, res) => {
+	try {
+		const img = req.query.img
+		const imagePath = path.join(uploadDir, img)
+
+		const image = fs.readFileSync(imagePath)
+
+		res.writeHead(200, { "Content-Type": "image/jpeg" })
+		res.end(image, "binary")
+	} catch (err) {
+		console.error(err)
+		res.status(500).send("Failed to retrieve image")
+	}
 })
 
 const PORT = process.env.PORT || 5000

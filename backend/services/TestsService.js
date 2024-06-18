@@ -65,7 +65,7 @@ class TestsService {
 			[idTest]
 		)
 		const questions = await db.query(
-			"select id, title, type, body, res from questions where id_test = $1",
+			"select id, title, type, body, res, img from questions where id_test = $1",
 			[idTest]
 		)
 		let modifiedRes
@@ -105,13 +105,14 @@ class TestsService {
 	}
 	async addQuestions(id, questions) {
 		await db.query(
-			"INSERT INTO questions VALUES (default, $1, $2, $3, $4, $5) RETURNING *",
+			"INSERT INTO questions VALUES (default, $1, $2, $3, $4, $5, $6) RETURNING *",
 			[
 				id,
 				questions.title,
 				questions.type,
 				JSON.stringify(questions.body),
 				JSON.stringify(questions.res),
+				JSON.stringify(questions.img),
 			]
 		)
 		return
@@ -170,10 +171,16 @@ class TestsService {
 		const data = await db.query("select * from tests where id = $1", [idTest])
 
 		const questionsData = await db.query(
-			"select title, type, body, res from questions where id_test = $1",
+			"select title, type, body, res, img from questions where id_test = $1",
 			[idTest]
 		)
 		const questionsBuffer = await this.getTest(idTest)
+
+		questionsBuffer.questions.forEach((question) => {
+			if (typeof question.img === "string") {
+				question.img = JSON.parse(question.img)
+			}
+		})
 
 		const questionsRes = questionsData.rows.map(({ res }) => res)
 		await db.query(
@@ -340,7 +347,9 @@ class TestsService {
 
 				const correctCount = checkResult.correctCount
 				const incorrectCount = checkResult.incorrectCount
-				const totalCount = correctCount + incorrectCount
+				const nullCount = checkResult.nullCount
+
+				const totalCount = correctCount + incorrectCount + nullCount
 				const resultPercent = (5 * correctCount) / totalCount
 				const roundedResultPercent = parseFloat(resultPercent.toFixed(2))
 
