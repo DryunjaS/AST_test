@@ -34,6 +34,8 @@ const RadioList = ({ testID, arrQues, current }) => {
 	}
 
 	useEffect(() => {
+		setImageUrls([])
+
 		const fetchImages = async () => {
 			if (arrQues[current].img.length) {
 				const imgFilenames = arrQues[current].img
@@ -58,9 +60,10 @@ const RadioList = ({ testID, arrQues, current }) => {
 		}
 
 		fetchImages()
+	}, [arrQues[current]])
+	useEffect(() => {
 		setValue(arrQues[current])
-	}, [arrQues, current])
-
+	}, [current])
 	const arrayBufferToBase64 = (buffer) => {
 		const bytes = new Uint8Array(buffer)
 		let binary = ""
@@ -76,14 +79,15 @@ const RadioList = ({ testID, arrQues, current }) => {
 			<div className='articles__item'>
 				<h3 className='title'>{arrQues[current].title}</h3>
 				<div className='images-ques'>
-					{imageUrls.map((imageUrl, index) => (
-						<img
-							key={index}
-							src={imageUrl}
-							alt={`Image ${index}`}
-							onClick={() => setShow(imageUrl)}
-						/>
-					))}
+					{imageUrls.length !== 0 &&
+						imageUrls.map((imageUrl, index) => (
+							<img
+								key={index}
+								src={imageUrl}
+								alt={`Image ${index}`}
+								onClick={() => setShow(imageUrl)}
+							/>
+						))}
 				</div>
 
 				<div className='text'>

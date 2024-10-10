@@ -31,15 +31,30 @@ function checkAnswers(buffer, response) {
 		if (isAnswered) {
 			nullCount++
 			nullAnswers.push(question)
-			allAnswers.push({ ques: question, typeAns: "null" })
+			allAnswers.push({
+				ques: question,
+				userAnsvers: userAnswers,
+				res: correctAnswersSet,
+				typeAns: "null",
+			})
 		} else if (isCorrect) {
 			correctCount++
 			correctAnswers.push(question)
-			allAnswers.push({ ques: question, typeAns: "correct" })
+			allAnswers.push({
+				ques: question,
+				userAnsvers: userAnswers,
+				res: correctAnswersSet,
+				typeAns: "correct",
+			})
 		} else {
 			incorrectCount++
 			incorrectAnswers.push(question)
-			allAnswers.push({ ques: question, typeAns: "incorrect" })
+			allAnswers.push({
+				ques: question,
+				userAnsvers: userAnswers,
+				res: correctAnswersSet,
+				typeAns: "incorrect",
+			})
 		}
 	})
 
@@ -101,6 +116,7 @@ class TestsService {
 			title,
 			time,
 		])
+		console.log(`insert into tests values (default, "${title}", "${time}");`)
 		return
 	}
 	async addQuestions(id, questions) {
@@ -114,6 +130,13 @@ class TestsService {
 				JSON.stringify(questions.res),
 				JSON.stringify(questions.img),
 			]
+		)
+		console.log(
+			`INSERT INTO questions VALUES (default, "${id}", "${questions.title}"," ${
+				questions.type
+			}", "${JSON.stringify(questions.body)}", "${JSON.stringify(
+				questions.res
+			)}", "${JSON.stringify(questions.img)}");`
 		)
 		return
 	}
@@ -441,6 +464,34 @@ class TestsService {
 		})
 
 		return finalResults
+	}
+	async getStoreResults() {
+		const { rows } = await db.query(
+			`SELECT id_user, id_test, buffer, response, time_start, time_finish 
+			 FROM store
+			 ORDER BY DATE(time_start), id_test`
+		)
+
+		const groupedByDate = rows.reduce((result, row) => {
+			const date = new Date(row.time_start).toISOString().split("T")[0]
+
+			if (!result[date]) {
+				result[date] = {}
+			}
+
+			if (!result[date][row.id_test]) {
+				result[date][row.id_test] = []
+			}
+
+			result[date][row.id_test].push({
+				id_user: row.id_user,
+				id_test: row.id_test,
+			})
+
+			return result
+		}, {})
+
+		return groupedByDate
 	}
 }
 

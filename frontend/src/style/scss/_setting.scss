@@ -7,7 +7,7 @@
 	flex-direction: column;
 	height: 100vh;
 	.articles {
-		width: 80vw;
+		width: 90vw;
 		height: 100%;
 		margin: 0 auto;
 		color: #fff;
@@ -19,7 +19,7 @@
 			padding: 30px;
 			border-radius: 16px;
 			margin: calc(var(--index) * 2) 0;
-			font-size: 18px;
+			font-size: 20px;
 			overflow: hidden; /* Ensure the pseudo-element doesn't overflow */
 			z-index: 0; /* Ensure it is below the pseudo-element */
 		}

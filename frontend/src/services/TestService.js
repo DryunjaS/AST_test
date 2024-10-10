@@ -1,3 +1,4 @@
+import fileDownload from "js-file-download"
 import { $authApi } from "../http"
 
 export default class TestService {
@@ -54,9 +55,21 @@ export default class TestService {
 	static async getStoreUserEvent() {
 		return $authApi.get(`api/tests/get-user-store`)
 	}
+	static async getStoreResults() {
+		return $authApi.get(`api/tests/get-store-results`)
+	}
 	static async getImagesEvent(img) {
 		return $authApi.get(`api/tests/get-img?img=${img}`, {
 			responseType: "arraybuffer",
 		})
+	}
+	static async downloadResultsAll(resultArr, txtTitle) {
+		return $authApi
+			.post(`api/tests/get-admin-stores-results`, {
+				resultArr: resultArr,
+			})
+			.then((res) => {
+				fileDownload(res.data, `${txtTitle}.txt`)
+			})
 	}
 }

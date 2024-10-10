@@ -26,7 +26,7 @@ function MyPagination({ userID, value, select, setSelectQ }) {
 	return (
 		<div className='pagination'>
 			<Module show={show} setShow={setShow} testID={testID} userID={userID} />
-			<div className='pagination__item' onClick={handleLeft}>
+			{/* <div className='pagination__item' onClick={handleLeft}>
 				{"<"}
 			</div>
 			{arr.map((item) => (
@@ -37,9 +37,10 @@ function MyPagination({ userID, value, select, setSelectQ }) {
 				>
 					{item}
 				</div>
-			))}
+			))} */}
+			{select} из {value}
 			<div className='pagination__item' onClick={handleRight}>
-				{">"}
+				{select < value ? "Следующий вопрос" : "Заверщить тест"}
 			</div>
 		</div>
 	)

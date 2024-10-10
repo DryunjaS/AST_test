@@ -13,11 +13,6 @@ router.post(
 	testsController.addQuestions
 )
 
-// router.post(
-// 	"/api/tests/add-images",
-// 	checkRoleMiddleware("admin"),
-// 	testsController.addImages
-// )
 router.delete(
 	"/delete-test",
 	checkRoleMiddleware("admin"),
@@ -36,11 +31,17 @@ router.get(
 	checkRoleMiddleware("admin"),
 	testsController.getAdminStores
 )
+router.post(
+	"/get-admin-stores-results",
+	checkRoleMiddleware("admin"),
+	testsController.downloadResultsAll
+)
 router.put("/update-store", testsController.updateStore)
 router.post("/finish-test", testsController.finishTest)
 router.get("/get-test-result", testsController.getResult)
 router.get("/download-result/:idTest", testsController.downloadResult)
 router.get("/get-user-store", testsController.getResults)
+router.get("/get-store-results", testsController.getStoreResults)
 
 router.delete(
 	"/delete-user-store",

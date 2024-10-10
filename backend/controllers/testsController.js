@@ -2,6 +2,7 @@ const ApiError = require("../error/ApiError.js")
 const TestsService = require("../services/TestsService.js")
 const fs = require("fs")
 const path = require("path")
+const UserService = require("../services/UserService.js")
 
 function getQuestionsType(type) {
 	if (type === "radio") {
@@ -14,10 +15,16 @@ function getQuestionsType(type) {
 }
 
 function formatTestResults(data) {
-	const { correctCount, incorrectCount, correctAnswers, incorrectAnswers } =
-		data
+	const {
+		correctCount,
+		incorrectCount,
+		correctAnswers,
+		incorrectAnswers,
+		nullCount,
+		nullAnswers,
+	} = data
 
-	const totalQuestions = correctCount + incorrectCount
+	const totalQuestions = correctCount + incorrectCount + nullCount
 	const accuracy = ((correctCount / totalQuestions) * 100).toFixed(2)
 
 	const formattedData = `
@@ -26,6 +33,7 @@ function formatTestResults(data) {
 Всего вопросов: ${totalQuestions}
 Правильных ответов: ${correctCount}
 Неправильных ответов: ${incorrectCount}
+Неотвеченных ответов: ${nullCount}
 Точность: ${accuracy}%
 
 Вопросы с правильными ответами:
@@ -54,6 +62,20 @@ ${incorrectAnswers
 			.map((b) => `${b.ques}: ${b.user_res}`)
 			.join(", ")}
 `
+	)
+	.join("\n")}
+
+Неотвеченные вопросы:
+---------------------------------
+${nullAnswers
+	.map(
+		(question) => `
+Заголовок: ${question.title}
+Тип: ${getQuestionsType(question.type)}
+Ответы пользователя: ${question.body
+			.map((b) => `${b.ques}: ${b.user_res}`)
+			.join(", ")}
+	`
 	)
 	.join("\n")}
 `
@@ -244,6 +266,55 @@ class TestsController {
 		try {
 			const data = await TestsService.getOnlineStore()
 			res.json(data)
+		} catch (e) {
+			next(ApiError.badRequest(e.message))
+		}
+	}
+	async getStoreResults(req, res, next) {
+		try {
+			const data = await TestsService.getStoreResults()
+			res.json(data)
+		} catch (e) {
+			next(ApiError.badRequest(e.message))
+		}
+	}
+	async downloadResultsAll(req, res, next) {
+		try {
+			const { resultArr } = req.body
+
+			let formattedData = "Результаты тестирования:\n\n"
+
+			for (const user of resultArr) {
+				const { id_user, id_test } = user
+
+				const { correctCount, incorrectCount, nullCount } =
+					await TestsService.getResult(id_user, id_test)
+
+				const totalCount = correctCount + incorrectCount + nullCount
+				const trueCount = correctCount
+
+				const res = ((5 * trueCount) / totalCount).toFixed(2)
+
+				const userInfo = await UserService.getUserByID(id_user)
+				const logEntry = `Курсант ${userInfo[0].login}, результат ${trueCount}/${totalCount}, оценка ${res}\n`
+				formattedData += logEntry
+			}
+
+			const filePath = path.join(__dirname, "../temp", `results.txt`)
+
+			fs.writeFile(filePath, formattedData, (err) => {
+				if (err) {
+					return next(
+						ApiError.badRequest("Не удалось записать результаты в файл.")
+					)
+				}
+
+				res.sendFile(filePath, (err) => {
+					if (!err) {
+						fs.unlinkSync(filePath)
+					}
+				})
+			})
 		} catch (e) {
 			next(ApiError.badRequest(e.message))
 		}

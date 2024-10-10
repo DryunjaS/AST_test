@@ -86,102 +86,172 @@ const Result = () => {
 					</div>
 				</div>
 			</div>
-			{resValue?.incorrectAnswers.length !== 0 ||
-				(resValue?.nullAnswers.length !== 0 && (
-					<div className='articles'>
-						<div className='articles__item max-con'>
-							<h2 className='title tc'>Подумайте над следующими вопросами:</h2>
-						</div>
-					</div>
-				))}
-
-			{resValue?.incorrectAnswers.map((question, index) => (
+			{resValue?.allAnswers.length !== 0 && (
 				<div className='articles'>
-					<div className='articles__item'>
-						<h3 className='title'>
-							{index + 1}. {question.title}
-						</h3>
-						<div className='text'>
-							{(() => {
-								switch (question.type) {
-									case "radio":
-										return (
-											<ul>
-												{question.body.map((item, indexItem) => (
-													<li>
-														{indexItem + 1}) {item.ques}
-													</li>
-												))}
-											</ul>
-										)
-									case "select":
-										return (
-											<ul>
-												{question.body.map((item, indexItem) => (
-													<li>
-														{indexItem + 1}) {item.ques.substring(3)}
-													</li>
-												))}
-											</ul>
-										)
-
-									case "check":
-										return (
-											<ul>
-												{question.body.map((item, indexItem) => (
-													<li>
-														{indexItem + 1}){item.ques}
-													</li>
-												))}
-											</ul>
-										)
-									default:
-										return null
-								}
-							})()}
-						</div>
+					<div className='articles__item max-con'>
+						<h2 className='title tc'>Вопросы теста:</h2>
 					</div>
 				</div>
-			))}
-			{resValue?.nullAnswers.map((question, index) => (
+			)}
+
+			{resValue?.allAnswers.map((question, index) => (
 				<div className='articles'>
 					<div className='articles__item'>
 						<h3 className='title'>
-							{index + 1}. {question.title}
+							{index + 1}. {question.ques.title}
 						</h3>
 						<div className='text'>
 							{(() => {
-								switch (question.type) {
+								switch (question.ques.type) {
 									case "radio":
 										return (
-											<ul>
-												{question.body.map((item, indexItem) => (
-													<li>
-														{indexItem + 1}) {item.ques}
-													</li>
-												))}
-											</ul>
+											<>
+												<ul>
+													{question.ques.body.map((item, indexItem) => (
+														<li>
+															{indexItem + 1}) {item.ques}
+														</li>
+													))}
+												</ul>
+												{question.typeAns === "correct" ? (
+													<div>
+														Вы ответили верно:{" "}
+														{question.ques.body.map((item) => (
+															<span>
+																{item.user_res.length !== 0 && item.ques}
+															</span>
+														))}
+													</div>
+												) : (
+													<>
+														<div>
+															Вы ответили:{" "}
+															{question.ques.body.map((item) => (
+																<span>
+																	{item.user_res.length !== 0 && item.ques}
+																</span>
+															))}
+														</div>
+
+														<div>
+															Правильный ответ:{" "}
+															{question.res.map((item) => (
+																<span>
+																	{item.res.length !== 0 && item.ques}
+																</span>
+															))}
+														</div>
+													</>
+												)}
+											</>
 										)
 									case "select":
 										return (
-											<ul>
-												{question.body.map((item, indexItem) => (
-													<li>
-														{indexItem + 1}) {item.ques.substring(3)}
-													</li>
-												))}
-											</ul>
+											<>
+												<ul>
+													{question.ques.body.map((item, indexItem) => (
+														<li>
+															{indexItem + 1}) {item.ques}
+														</li>
+													))}
+												</ul>
+												{question.typeAns === "correct" ? (
+													<div>
+														Вы ответили верно:
+														<ul>
+															{question.ques.body.map((item) => (
+																<li>
+																	{item.ques} - {item.user_res}
+																</li>
+															))}
+														</ul>
+													</div>
+												) : (
+													<>
+														<div>
+															Вы ответили:{" "}
+															<ul>
+																{question.ques.body.map((item) => (
+																	<li>
+																		{item.ques} - {item.user_res}
+																	</li>
+																))}
+															</ul>
+														</div>
+
+														<div>
+															Правильный ответ:{" "}
+															<ul>
+																{question.res.map((item) => (
+																	<li>
+																		{item.ques} - {item.res}
+																	</li>
+																))}
+															</ul>
+														</div>
+													</>
+												)}
+											</>
 										)
 
 									case "check":
 										return (
-											<ul>
-												{question.body.map((item, indexItem) => (
-													<li>
-														{indexItem + 1}){item.ques}
-													</li>
-												))}
-											</ul>
+											<>
+												<ul>
+													{question.ques.body.map((item, indexItem) => (
+														<li>
+															{indexItem + 1}){item.ques}
+														</li>
+													))}
+												</ul>
+												{question.typeAns === "correct" ? (
+													<div>
+														Вы ответили верно:{" "}
+														<ul>
+															{question.ques.body.map((item, index) => (
+																<>
+																	{item.user_res.length !== 0 && (
+																		<li>
+																			{index + 1}) {item.ques}
+																		</li>
+																	)}
+																</>
+															))}
+														</ul>
+													</div>
+												) : (
+													<>
+														<div>
+															Вы ответили:{" "}
+															<ul>
+																{question.ques.body.map((item, index) => (
+																	<>
+																		{item.user_res.length !== 0 && (
+																			<li>
+																				{index + 1}) {item.ques}
+																			</li>
+																		)}
+																	</>
+																))}
+															</ul>
+														</div>
+
+														<div>
+															Правильный ответ:{" "}
+															<ul>
+																{question.res.map(
+																	(item, index) =>
+																		item.res.length !== 0 && (
+																			<li key={index}>
+																				{index + 1}) {item.ques}
+																			</li>
+																		)
+																)}
+															</ul>
+														</div>
+													</>
+												)}
+											</>
 										)
 									default:
 										return null

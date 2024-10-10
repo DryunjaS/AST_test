@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom"
 function ModalAddQues({ show, setShow, setTest }) {
 	const [select, setSelect] = useState("1")
 	const [images, setImages] = useState([])
+	const [imagesList, setImagesList] = useState([])
 
 	const { id } = useParams()
 
@@ -145,6 +146,12 @@ function ModalAddQues({ show, setShow, setTest }) {
 		const file = event.target.files[0]
 		if (file) {
 			setImages([...images, file])
+
+			const reader = new FileReader()
+			reader.onloadend = () => {
+				setImagesList([...imagesList, { name: file.name, src: reader.result }])
+			}
+			reader.readAsDataURL(file)
 		}
 	}
 	useEffect(() => {
@@ -158,6 +165,7 @@ function ModalAddQues({ show, setShow, setTest }) {
 
 	const deleteImage = (index) => {
 		setImages((prevImages) => prevImages.filter((_, i) => i !== index))
+		setImagesList((prevImages) => prevImages.filter((_, i) => i !== index))
 	}
 
 	return (
@@ -216,11 +224,10 @@ function ModalAddQues({ show, setShow, setTest }) {
 											</div>
 										</div>
 										<div className='flex start'>
-											{images.map((img, index) => (
-												<div className='select-images'>
-													<img key={index} src={`/images/${img.name}`} alt='' />
+											{imagesList.map((img, index) => (
+												<div className='select-images' key={index}>
+													<img src={img.src} alt='' />
 													<img
-														key={index}
 														src={`/images/close.png`}
 														onClick={() => deleteImage(index)}
 														alt=''
@@ -285,11 +292,11 @@ function ModalAddQues({ show, setShow, setTest }) {
 											</div>
 										</div>
 										<div className='flex start'>
-											{images.map((img, index) => (
-												<div className='select-images'>
-													<img key={index} src={`/images/${img.name}`} alt='' />
+											{imagesList.map((img, index) => (
+												<div className='select-images' key={index}>
+													<img src={img.src} alt='' />
+
 													<img
-														key={index}
 														src={`/images/close.png`}
 														onClick={() => deleteImage(index)}
 														alt=''
@@ -361,9 +368,10 @@ function ModalAddQues({ show, setShow, setTest }) {
 											</div>
 										</div>
 										<div className='flex start'>
-											{images.map((img, index) => (
-												<div className='select-images'>
-													<img key={index} src={`/images/${img.name}`} alt='' />
+											{imagesList.map((img, index) => (
+												<div className='select-images' key={index}>
+													<img src={img.src} alt='' />
+
 													<img
 														key={index}
 														src={`/images/close.png`}

@@ -10,19 +10,13 @@ const fs = require("fs")
 
 const server = http.createServer(app)
 const socketIo = require("socket.io")
-const io = socketIo(server, {
-	cors: {
-		origin: "*",
-		methods: ["GET", "POST"],
-	},
-})
-// Указываем директорию для сохранения загруженных файлов
+const io = socketIo(server, { cors: { origin: "*" } })
+
 const uploadDir = path.join(__dirname, "uploads")
 if (!fs.existsSync(uploadDir)) {
 	fs.mkdirSync(uploadDir)
 }
 
-// Настройка Multer для сохранения файлов в указанную директорию
 const storage = multer.diskStorage({
 	destination: function (req, file, cb) {
 		cb(null, uploadDir)
@@ -32,7 +26,6 @@ const storage = multer.diskStorage({
 	},
 })
 
-// Используем upload.array() для загрузки нескольких файлов
 const upload = multer({ storage: storage })
 
 app.use(cors())
@@ -50,7 +43,6 @@ app.get("/", function (req, res) {
 	res.sendFile(path.resolve(__dirname, "./dist", "index.html"))
 })
 
-// Обновленный маршрут для загрузки нескольких файлов
 app.post("/api/tests/add-images", upload.array("files"), (req, res) => {
 	const files = req.files
 	if (!files || files.length === 0) {
@@ -59,7 +51,6 @@ app.post("/api/tests/add-images", upload.array("files"), (req, res) => {
 
 	res.send("Files uploaded successfully.")
 })
-// Маршрут для получения изображения по его названию
 app.get("/api/tests/get-img", async (req, res) => {
 	try {
 		const img = req.query.img
